@@ -1,0 +1,41 @@
+import pandas as pd
+
+# Nombre del archivo CSV
+FNAME = "jojostandstatsv2.csv"
+
+def main():
+    print(f"Cargando archivo: {FNAME}")
+    
+    # ✅ Cargar el archivo con encoding corregido
+    df = pd.read_csv(FNAME, encoding="latin1")
+    
+    # Limpiar nombres de columnas
+    df.columns = df.columns.str.strip()
+    
+    print("\n--- Primeros registros (head) ---")
+    print(df.head())
+    
+    print("\n--- Últimos registros (tail) ---")
+    print(df.tail())
+    
+    print("\n--- Resumen estadístico con describe() ---")
+    print(df.describe())
+    
+    print("\n--- Tipos de datos por columna ---")
+    print(df.dtypes)
+    
+    # Ordenar por una columna (ejemplo: Power si existe)
+    if "Power" in df.columns:
+        print("\n--- Ordenado por Power (descendente) ---")
+        print(df.sort_values(by="Power", ascending=False).head())
+    
+    # Seleccionar una columna numérica para cálculos (ejemplo: Speed)
+    if "Speed" in df.columns:
+        col = "Speed"
+        print(f"\n--- Medidas estadísticas de la columna '{col}' ---")
+        print(f"Media: {df[col].mean()}")
+        print(f"Mediana: {df[col].median()}")
+        print(f"Desviación estándar: {df[col].std()}")
+
+if __name__ == "__main__":
+    main()
